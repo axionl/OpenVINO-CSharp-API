@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using OpenVinoSharp.Extensions.utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using OpenVinoSharp.Extensions.utility;
 
 namespace OpenVinoSharp.Extensions
 {
@@ -20,7 +16,7 @@ namespace OpenVinoSharp.Extensions
         /// <param name="model_path">The inference model path.</param>
         /// <param name="device_name">The device name, default="CPU".</param>
         /// <returns>Running status code.</returns>
-        public static int sync_benchmark(string model_path, string device_name = "CPU") 
+        public static int sync_benchmark(string model_path, string device_name = "CPU")
         {
             try
             {
@@ -75,7 +71,8 @@ namespace OpenVinoSharp.Extensions
                 new LatencyMetrics(latencies, "", percent).write_to_slog();
                 Slog.INFO("Throughput: " + (latencies.Count * 1000 / duration).ToString("0.00") + "FPS");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Slog.INFO(ex.Message);
                 return 1;
             }

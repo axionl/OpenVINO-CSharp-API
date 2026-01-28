@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace OpenVinoSharp.Extensions.utility
 {
@@ -38,7 +34,7 @@ namespace OpenVinoSharp.Extensions.utility
         /// </summary>
         /// <param name="array">The original array.</param>
         /// <returns>The position after arrangement.</returns>
-        public static List<int> argsort(float[] array) 
+        public static List<int> argsort(float[] array)
         {
             return argsort(new List<float>(array));
         }

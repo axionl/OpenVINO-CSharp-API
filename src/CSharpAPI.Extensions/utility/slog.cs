@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenVinoSharp.Extensions.utility
 {
     public static class Slog
     {
-        public static void INFO(string msg) 
+        public static void INFO(string msg)
         {
             Console.WriteLine("[ INFO ] " + msg);
         }

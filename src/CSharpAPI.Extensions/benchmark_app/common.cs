@@ -1,12 +1,7 @@
 ﻿using OpenVinoSharp.Extensions.utility;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenVinoSharp.Extensions
 {
@@ -16,7 +11,7 @@ namespace OpenVinoSharp.Extensions
     public static class Common
     {
         static Random rd = new Random((int)DateTime.Now.Ticks);
-        static T[] get_random_array<T>(int length) 
+        static T[] get_random_array<T>(int length)
         {
             T[] result = new T[length];
             string t = typeof(T).ToString();
@@ -25,7 +20,7 @@ namespace OpenVinoSharp.Extensions
                 byte[] tmp = new byte[length];
                 byte min = byte.MinValue;
                 byte max = byte.MaxValue;
-                for (int i = 0; i < length; ++i) 
+                for (int i = 0; i < length; ++i)
                 {
                     tmp[i] = (byte)rd.Next(min, max);
                 }
@@ -97,11 +92,11 @@ namespace OpenVinoSharp.Extensions
         /// Fill the tensor with random data.
         /// </summary>
         /// <param name="tensor">The model tensor.</param>
-        public static void fill_tensor_random(Tensor tensor) 
+        public static void fill_tensor_random(Tensor tensor)
         {
             OvType type = tensor.get_element_type();
             ulong length = tensor.get_size();
-            switch (type.get_type()) 
+            switch (type.get_type())
             {
                 case ElementType.F64:
                     double[] tmp1 = get_random_array<double>((int)length);
@@ -134,7 +129,7 @@ namespace OpenVinoSharp.Extensions
 
         public LatencyMetrics(List<double> latencies,
                     string data_shape = "",
-                    int percentile_boundary = 50)      
+                    int percentile_boundary = 50)
         {
             percentile_boundary = percentile_boundary;
             data_shape = data_shape;
@@ -168,7 +163,7 @@ namespace OpenVinoSharp.Extensions
             latencies.Sort();
             min = latencies.Min();
             avg = latencies.Sum() / (double)latencies.Count;
-            median_or_percentile = latencies[(int)(latencies.Count/ 100.0 * percentile_boundary)];
+            median_or_percentile = latencies[(int)(latencies.Count / 100.0 * percentile_boundary)];
             max = latencies.Max();
         }
         private int percentile_boundary = 50;

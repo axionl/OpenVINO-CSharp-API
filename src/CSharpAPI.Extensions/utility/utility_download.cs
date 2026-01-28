@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.Compression;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SharpCompress.Archives;
 using SharpCompress.Archives.Rar;
-using SharpCompress.Archives;
+using SharpCompress.Archives.Zip;
 using SharpCompress.Common;
 using SharpCompress.Readers.Tar;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace OpenVinoSharp.Extensions.utility
 {
@@ -87,7 +84,14 @@ namespace OpenVinoSharp.Extensions.utility
             string extension = Path.GetExtension(file_path);
             if (extension == ".zip")
             {
-                ZipFile.ExtractToDirectory(file_path, extract_path);
+                using (var archive = ZipArchive.Open(file_path))
+                {
+                    archive.WriteToDirectory(extract_path, new ExtractionOptions
+                    {
+                        ExtractFullPath = true,
+                        Overwrite = true,
+                    });
+                }
             }
             else if (extension == ".tar")
             {
@@ -133,7 +137,6 @@ namespace OpenVinoSharp.Extensions.utility
             }
             else { throw new NotSupportedException("Decompression of this format file is currently not supported."); }
         }
-
     }
 
     public class DownloadConsole
